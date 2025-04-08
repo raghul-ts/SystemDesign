@@ -1,3 +1,168 @@
+// Taxi Booking System (Zulu) - Detailed Problem Statement
+// Objective
+// Design and implement a Taxi Booking System (similar to Uber or Ola) with the following functionalities:
+
+// Customers can book rides.
+
+// Drivers can accept rides and track earnings.
+
+// Admin can manage drivers, locations, and view system analytics.
+
+// System Requirements
+// 1. User Roles & Features
+// Role	Features
+// Customer	- Sign up & Login
+// - Book a ride (source & destination)
+// - View ride history (fare, driver details)
+// Driver	- Login
+// - View assigned rides
+// - Track earnings (fare, Zulu’s commission, net profit)
+// Admin	- Add/Remove drivers
+// - View all customers & drivers
+// - View total revenue
+// - Add new locations
+// 2. Location & Fare Management
+// Predefined Locations: A, C, D, F, B, G, H, E
+
+// Distance from Origin (in km):
+
+// Copy
+// A: 0, C: 4, D: 7, F: 9, B: 15, G: 18, H: 20, E: 23
+// Fare Calculation:
+
+// Copy
+// Fare = |Distance(Source) - Distance(Destination)| × 10
+// Example:
+
+// If a customer books from A (0) to C (4):
+// Fare = |0 - 4| × 10 = 40
+
+// 3. Driver Assignment Logic
+// When a customer requests a ride:
+
+// Find the nearest available driver (based on distance from customer’s pickup location).
+
+// If multiple drivers are at the same distance, assign the one with the fewest trips.
+
+// Mark the driver as unavailable during the ride.
+
+// After ride completion, update:
+
+// Driver’s location to the drop-off point.
+
+// Driver’s availability back to "available".
+
+// Increment driver’s trip count.
+
+// 4. Earnings & Commission
+// Zulu’s Commission: 30% of the fare.
+
+// Driver’s Profit: 70% of the fare.
+
+// Total Revenue: Sum of all commissions earned by Zulu.
+
+// Expected Functionalities
+// 1. Customer Operations
+// Sign Up:
+
+// Provide name, age, gender, password.
+
+// Auto-generate a customer_id.
+
+// Login:
+
+// Enter customer_id and password.
+
+// Book a Ride:
+
+// Enter source and destination.
+
+// System displays:
+
+// Estimated fare.
+
+// Nearest driver details (name, age, gender, cab location).
+
+// Confirm ride → Driver assigned.
+
+// View Ride History:
+
+// List all past rides with:
+
+// Source, Destination, Driver Name, Fare.
+
+// 2. Driver Operations
+// Login:
+
+// Enter driver_id and password.
+
+// View Earnings Summary:
+
+// For each ride:
+
+// Source, Destination, Fare, Zulu’s Commission (30%), Final Profit (70%).
+
+// 3. Admin Operations
+// Login:
+
+// Password: "zulu".
+
+// Add a New Driver:
+
+// Provide name, age, gender, password, cab location.
+
+// View All Customers:
+
+// List all customers with their name, age, gender, ride history.
+
+// View All Drivers:
+
+// List all drivers with their name, age, gender, trips, earnings.
+
+// View Total Revenue:
+
+// Sum of all commissions earned by Zulu.
+
+// Add New Location:
+
+// Add a new location with its distance from origin.
+
+// Technical Implementation Details
+// Classes & Data Structures
+// Class	Purpose
+// Customer	Stores customer details (id, name, age, gender, password) and booking history.
+// Driver	Stores driver details (id, name, age, gender, password, availability, trips) and earnings.
+// Admin	Handles admin operations (viewing data, adding drivers/locations).
+// CustomerBooking	Stores ride details (source, destination, driver name, fare).
+// DriverBooking	Stores ride earnings (source, destination, fare, commission, profit).
+// TaxiApp	Main system class managing all operations (login, booking, admin functions).
+// Key Data Structures
+// unordered_map<char, int> → Maps locations to distances.
+
+// unordered_map<int, char> → Maps driver IDs to current locations.
+
+// vector<Customer*>, vector<Driver*> → Stores all users.
+
+// stack/queue → (Optional) For ride request management.
+
+// Sample Input/Output
+// 1. Customer Booking a Ride
+// Copy
+// Enter source and Destination (A-H): A C
+// Fare amount: 40
+// Driver arriving from location: A
+// Pick up Driver:
+// Name -> aaa, Id -> 1, Age -> 43, Gender -> M
+// Journey Confirmed! Happy ride!
+// 2. Driver Viewing Earnings
+// Copy
+// Source: A, Destination: C, Fare: 40, Zulu Commission: 12, Final Profit: 28
+// 3. Admin Adding a New Driver
+// Copy
+// Enter driver name, age, password, gender, cab position: 
+// John 35 pass123 M B
+// New driver added (ID: 5) at location B.
+
 #include <iostream>
 #include <vector>
 #include <unordered_map>
